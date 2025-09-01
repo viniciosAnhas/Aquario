@@ -13,6 +13,7 @@ pipeline {
             steps {
                 sh 'hostname -I'
                 sh 'pwd'
+                sh 'ls -l'
                 sh 'docker images'
             }
         }
