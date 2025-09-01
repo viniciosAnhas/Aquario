@@ -1,2 +1,2 @@
 # Aquario
-Projeto para alimentador automatico para aquario
+Projeto alimentador automatico para aquario
