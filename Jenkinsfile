@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'raspberry' }
+    agent { label 'Raspberrypi' }
 
     stages {
         stage('Teste de Conexao') {
