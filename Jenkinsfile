@@ -16,8 +16,6 @@ pipeline {
                     rm -rf /home/pi/Aquario/*
                     cd /home/pi/JenkinsAgent/workspace/Aquario
                     mv -f * /home/pi/Aquario/
-                    cd ..
-                    rm -rf *
                 '''
             }
         }
