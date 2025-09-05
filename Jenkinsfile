@@ -13,7 +13,6 @@ pipeline {
         stage('Mover arquivos para a pasta Aquario') {
             steps {
                 sh '''
-                    rm -rf /home/pi/Aquario/{*,.*}
                     cd /home/pi/JenkinsAgent/workspace/Aquario
                     mv -f * /home/pi/Aquario/
                 '''
