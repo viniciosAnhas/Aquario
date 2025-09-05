@@ -2,6 +2,22 @@ pipeline {
     agent { label 'Raspberrypi' }
 
     stages {
+        stage('Limpando Memoria') {
+            steps {
+                sh '''
+                    sudo sysctl -w = 3 vm.drop_caches 
+                    sudo sync && sudo sysctl vm.drop_caches=3 
+                    free -h
+                '''
+            }
+        }
+        stage('Temperatura do Raspberry') {
+            steps {
+                sh '''
+                    vcgencmd measure_temp
+                '''
+            }
+        }
         stage('Verificando docker') {
             steps {
                 sh '''
