@@ -2,7 +2,7 @@ pipeline {
     agent { label 'Raspberrypi' }
 
     stages {
-        stage('Verificando docker') {
+        stage('Verificando docker 🐋') {
             steps {
                 sh '''
                     docker images
@@ -10,7 +10,7 @@ pipeline {
                 '''
             }
         }
-        stage('Mover arquivos para a pasta Aquario') {
+        stage('Mover arquivos para a pasta Aquario 📂') {
             steps {
                 sh '''
                     rm -rf /home/pi/Aquario/*
