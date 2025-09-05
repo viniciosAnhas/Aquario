@@ -6,9 +6,19 @@ pipeline {
             steps {
                 sh 'hostname -I'
                 sh 'docker images'
-                sh 'shopt -s dotglob'
-                sh 'mv -f /home/pi/JenkinsAgent/workspace/Aquario/* /home/pi/Aquario/'
             }
+        }
+    stage('Mover arquivos') {
+        steps {
+            sh '''
+                # Vai até a pasta do workspace
+                cd /home/pi/JenkinsAgent/workspace/Aquario
+                # Habilita inclusão de arquivos ocultos no *
+                shopt -s dotglob
+                # Move tudo para a pasta destino
+                mv -f * /home/pi/Aquario/
+            '''
+        }
         }
     }
 }
