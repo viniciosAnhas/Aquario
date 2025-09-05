@@ -2,14 +2,13 @@ import RPi.GPIO as GPIO
 import time
 import os
 from dotenv import load_dotenv
-from decimal import Decimal
 
 load_dotenv()
 
 GPIO.setmode(GPIO.BCM)
 
 LED_PIN = int(os.getenv("LED_PIN"))
-TEMPO = Decimal(os.getenv("TEMPO"))
+TEMPO = float(os.getenv("TEMPO"))
 
 GPIO.setup(LED_PIN, GPIO.OUT)
 
