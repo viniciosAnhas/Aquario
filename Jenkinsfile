@@ -6,7 +6,6 @@ pipeline {
             steps {
                 sh 'hostname -I'
                 sh 'docker images'
-                sh 'mv * Aquario/* /home/pi/Aquario/'
             }
         }
     }
