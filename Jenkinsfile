@@ -2,22 +2,6 @@ pipeline {
     agent { label 'Raspberrypi' }
 
     stages {
-        stage('Limpando Memoria') {
-            steps {
-                sh '''
-                    sudo sysctl -w = 3 vm.drop_caches 
-                    sudo sync && sudo sysctl vm.drop_caches=3 
-                    free -h
-                '''
-            }
-        }
-        stage('Temperatura do Raspberry') {
-            steps {
-                sh '''
-                    vcgencmd measure_temp
-                '''
-            }
-        }
         stage('Verificando docker') {
             steps {
                 sh '''
@@ -32,6 +16,21 @@ pipeline {
                     rm -rf /home/pi/Aquario/*
                     cd /home/pi/JenkinsAgent/workspace/Aquario
                     mv -f * /home/pi/Aquario/
+                '''
+            }
+        }
+        stage('Limpando Memoria') {
+            steps {
+                sh '''
+                    sysctl -w = 3 vm.drop_caches
+                    sync && sudo sysctl vm.drop_caches=3
+                '''
+            }
+        }
+        stage('Temperatura Raspberry') {
+            steps {
+                sh '''
+                    vcgencmd measure_temp
                 '''
             }
         }
