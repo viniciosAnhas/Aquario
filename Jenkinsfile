@@ -2,21 +2,24 @@ pipeline {
     agent { label 'Raspberrypi' }
 
     stages {
-        stage('Teste de Conexao') {
+        stage('Verificando docker') {
             steps {
-                sh 'hostname -I'
-                sh 'docker images'
+                sh '''
+                    docker images
+                    docker ps
+                '''
             }
         }
-    stage('Mover arquivos') {
-        steps {
-            sh '''
-                # Vai até a pasta do workspace
-                cd /home/pi/JenkinsAgent/workspace/Aquario
-                # Move tudo para a pasta destino
-                mv -f * /home/pi/Aquario/
-            '''
-        }
+        stage('Mover arquivos para a pasta Aquario') {
+            steps {
+                sh '''
+                    rm -rf /home/pi/Aquario/*
+                    cd /home/pi/JenkinsAgent/workspace/Aquario
+                    mv -f * /home/pi/Aquario/
+                    cd ..
+                    rm -rf *
+                '''
+            }
         }
     }
 }
