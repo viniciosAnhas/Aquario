@@ -1,6 +1,10 @@
 pipeline {
     agent { label 'Raspberrypi' }
 
+    triggers {
+        githubPush()
+    }
+
     stages {
         stage('Teste de Conexao') {
             steps {
