@@ -14,8 +14,6 @@ pipeline {
             steps {
                 sh '''
                     cd ..
-                    ls -l
-                    pwd
                     rm -rf /home/pi/Aquario/
                     cp -r Aquario /home/pi/
                 '''
