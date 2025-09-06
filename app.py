@@ -5,7 +5,20 @@ from led_routes import led_bp
 from system_routes import system_bp
 
 app = Flask(__name__)
-swagger = Swagger(app)
+swagger = Swagger(app, config={
+    "headers": [],
+    "specs": [
+        {
+            "endpoint": 'apispec_1',
+            "route": '/apiaquario/apispec_1.json',
+            "rule_filter": lambda rule: True,
+            "model_filter": lambda tag: True,
+        }
+    ],
+    "static_url_path": "/flasgger_static",
+    "swagger_ui": True,
+    "specs_route": "/apiaquario/"
+})
 
 # Registrar blueprints
 app.register_blueprint(led_bp)
