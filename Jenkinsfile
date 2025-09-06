@@ -2,7 +2,7 @@ pipeline {
     agent { label 'Raspberrypi' }
 
     stages {
-        stage('Limpando Memoria'){
+        stage('Limpando Memoria Comeco'){
             steps{
                 sh '''
                     free -h
