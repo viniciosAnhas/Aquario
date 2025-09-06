@@ -36,10 +36,6 @@ load_dotenv()
 LED_PIN = int(os.getenv("LED_PIN"))
 TEMPO = float(os.getenv("TEMPO"))
 
-# Configuração do GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(LED_PIN, GPIO.OUT)
-
 # Criar app Flask
 app = Flask(__name__)
 swagger = Swagger(app)
@@ -48,9 +44,19 @@ swagger = Swagger(app)
 blinking = False
 blink_thread = None
 
+def setup_gpio():
+    """Configura o GPIO se ainda não foi configurado"""
+    try:
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(LED_PIN, GPIO.OUT)
+    except RuntimeError:
+        # Se já estiver configurado, ignoramos
+        pass
+
 def blink_led():
     """Thread para piscar LED"""
     global blinking
+    setup_gpio()
     while blinking:
         GPIO.output(LED_PIN, GPIO.HIGH)
         time.sleep(TEMPO)
@@ -77,7 +83,8 @@ def set_led():
         description: Status do LED
     """
     global blinking
-    blinking = False  # se estava piscando, para
+    setup_gpio()   # <- garante que GPIO está pronto
+    blinking = False
     data = request.get_json()
     if data and data.get("state"):
         GPIO.output(LED_PIN, GPIO.HIGH)
@@ -95,6 +102,7 @@ def get_led_status():
       200:
         description: Status atual do LED
     """
+    setup_gpio()
     status = GPIO.input(LED_PIN)
     return jsonify({"status": "ligado" if status else "desligado"})
 
@@ -108,6 +116,7 @@ def start_blink():
         description: Inicia o piscar do LED
     """
     global blinking, blink_thread
+    setup_gpio()
     if not blinking:
         blinking = True
         blink_thread = threading.Thread(target=blink_led, daemon=True)
@@ -126,6 +135,7 @@ def stop_blink():
         description: Para o piscar do LED
     """
     global blinking
+    setup_gpio()
     blinking = False
     GPIO.output(LED_PIN, GPIO.LOW)
     return jsonify({"status": "Piscar parado e LED desligado"})
@@ -135,4 +145,5 @@ def cleanup_gpio(exception=None):
     GPIO.cleanup()
 
 if __name__ == "__main__":
+    setup_gpio()
     app.run(host="0.0.0.0", port=5000, debug=True)
