@@ -1,10 +1,10 @@
 import subprocess
 from flask import Blueprint, jsonify
 
-raspbrry_bp = Blueprint('raspberry', __name__)
+raspberry_bp = Blueprint('raspberry', __name__)
 
-@raspberry_bp.route('/raspbeerry/status', methods=['GET'])
-def system_status():
+@raspberry_bp.route('/raspberry/status', methods=['GET'])
+def raspberry_status():
     """
     Consultar temperatura do Raspberry Pi
     ---
