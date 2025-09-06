@@ -9,7 +9,7 @@ pipeline {
                 '''
             }
         }
-        stage('Realizando a primeira Limpeza 🧹'){
+        stage('Realizando Limpeza de Memoria 🧹'){
             steps{
                 sh '''
                     free -h
@@ -37,20 +37,6 @@ pipeline {
                     cd ..
                     rm -rf /home/pi/Aquario/
                     cp -r Aquario /home/pi/
-                '''
-            }
-        }
-        stage('Realizando a segunda Limpeza 🧹') {
-            steps {
-                sh '''
-                    free -h
-                    sudo sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
-                    echo 1 | sudo tee /proc/sys/vm/drop_caches
-                    echo 2 | sudo tee /proc/sys/vm/drop_caches
-                    sync
-                    echo 3 | sudo tee /proc/sys/vm/drop_caches
-                    sudo sysctl -w vm.drop_caches=3
-                    free -h
                 '''
             }
         }
