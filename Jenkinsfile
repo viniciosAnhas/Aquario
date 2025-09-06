@@ -13,7 +13,6 @@ pipeline {
         stage('Mover arquivos para a pasta Aquario') {
             steps {
                 sh '''
-                    ls -l
                     cd ..
                     ls -l
                     pwd
