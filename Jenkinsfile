@@ -18,25 +18,11 @@ pipeline {
                     cd ..
                     ls -l
                     pwd
+                    rm -rf /home/pi/Aquario/
                     cp -r Aquario /home/pi/
-                    // rm -rf /home/pi/Aquario/*
-                    // shopt -s dotglob
-                    // cd /home/pi/JenkinsAgent/workspace/Aquario
-                    // mv -f * /home/pi/Aquario/
                 '''
             }
         }
-        // stage('Monitoramento do Sistema') {
-        //     steps {
-        //         sh '''
-        //             vcgencmd measure_temp
-        //             echo ""
-        //             free -h
-        //             echo ""
-        //             df -h /
-        //         '''
-        //     }
-        // }
         stage('Limpando Memoria') {
             steps {
                 sh '''
@@ -46,15 +32,6 @@ pipeline {
                     free -h
                 '''
             }
-        }
-    }
-
-    post {
-        always {
-            sh '''
-                vcgencmd measure_temp
-                free -h
-            '''
         }
     }
 }
