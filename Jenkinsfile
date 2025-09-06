@@ -2,16 +2,6 @@ pipeline {
     agent { label 'Raspberrypi' }
 
     stages {
-        stage('Limpando Memoria') {
-            steps {
-                sh '''
-                    free -h
-                    sync
-                    echo 3 | sudo tee /proc/sys/vm/drop_caches
-                    free -h
-                '''
-            }
-        }
         stage('Verificando docker') {
             steps {
                 sh '''
