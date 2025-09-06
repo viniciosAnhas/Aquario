@@ -13,6 +13,8 @@ pipeline {
         stage('Mover arquivos para a pasta Aquario') {
             steps {
                 sh '''
+                    pwd
+                    ls -l
                     rm -rf /home/pi/Aquario/*
                     shopt -s dotglob
                     // cd /home/pi/JenkinsAgent/workspace/Aquario
