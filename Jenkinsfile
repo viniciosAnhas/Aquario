@@ -14,8 +14,8 @@ pipeline {
             steps {
                 sh '''
                     rm -rf /home/pi/Aquario/*
-                    cd /home/pi/JenkinsAgent/workspace/Aquario
-                    mv -f * /home/pi/Aquario/
+                    // cd /home/pi/JenkinsAgent/workspace/Aquario
+                    // mv -f * /home/pi/Aquario/
                 '''
             }
         }
@@ -47,6 +47,8 @@ pipeline {
             sh '''
                 vcgencmd measure_temp
                 free -h
+                sync
+                echo 3 | sudo tee /proc/sys/vm/drop_caches
             '''
         }
     }
