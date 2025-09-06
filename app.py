@@ -52,6 +52,18 @@ def led_off():
     GPIO.output(motor, GPIO.LOW)
     return jsonify({"status": "Motor desligado"})
 
+@app.route('/motor/status', methods=['GET'])
+def get_led_status():
+    """
+    Consultar status do Motor
+    ---
+    responses:
+      200:
+        description: Status atual do Motor
+    """
+    status = GPIO.input(motor)
+    return jsonify({"status": "ligado" if status else "desligado"})
+
 if __name__ == "__main__":
     try:
         app.run(host="0.0.0.0", port=os.getenv('PORTA'))
