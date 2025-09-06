@@ -2,7 +2,14 @@ pipeline {
     agent { label 'Raspberrypi' }
 
     stages {
-        stage('Limpando Memoria Comeco'){
+        stage('Verificando Raspberry 🌡️⚡'){
+            steps{
+                sh '''
+                    vcgencmd measure_temp && vcgencmd measure_volts
+                '''
+            }
+        }
+        stage('Realizando a primeira Limpeza 🧹'){
             steps{
                 sh '''
                     free -h
@@ -12,7 +19,7 @@ pipeline {
                 '''
             }
         }
-        stage('Verificando docker') {
+        stage('Verificando Docker 🐋') {
             steps {
                 sh '''
                     docker images
@@ -20,7 +27,7 @@ pipeline {
                 '''
             }
         }
-        stage('Mover arquivos para a pasta Aquario') {
+        stage('Movendo a pasta Aquario 📂') {
             steps {
                 sh '''
                     cd ..
@@ -29,7 +36,7 @@ pipeline {
                 '''
             }
         }
-        stage('Limpando Memoria') {
+        stage('Realizando a segunda Limpeza 🧹') {
             steps {
                 sh '''
                     free -h
