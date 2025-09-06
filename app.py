@@ -1,7 +1,7 @@
 from flask import Flask
 from flasgger import Swagger
 import RPi.GPIO as GPIO
-from led_routes import led_bp
+from motor_routes import motor_bp
 from system_routes import system_bp
 
 app = Flask(__name__)
