@@ -15,7 +15,10 @@ pipeline {
                 sh '''
                     pwd
                     ls -l
-                    cp /home/pi/JenkinsAgent/workspace/Aquario/ /home/pi/
+                    cd ..
+                    ls -l
+                    pwd
+                    cp -r Aquario /home/pi/
                     // rm -rf /home/pi/Aquario/*
                     // shopt -s dotglob
                     // cd /home/pi/JenkinsAgent/workspace/Aquario
