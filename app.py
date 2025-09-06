@@ -1,28 +1,3 @@
-# import RPi.GPIO as GPIO
-# import time
-# import os
-# from dotenv import load_dotenv
-
-# load_dotenv()
-
-# GPIO.setmode(GPIO.BCM)
-
-# LED_PIN = int(os.getenv("LED_PIN"))
-# TEMPO = float(os.getenv("TEMPO"))
-
-# GPIO.setup(LED_PIN, GPIO.OUT)
-
-# try:
-#     while True:
-#         GPIO.output(LED_PIN, GPIO.HIGH)
-#         time.sleep(TEMPO)
-#         GPIO.output(LED_PIN, GPIO.LOW)
-#         time.sleep(TEMPO)
-# except KeyboardInterrupt:
-#     print("Encerrando o programa...")
-# finally:
-#     GPIO.cleanup()
-
 import RPi.GPIO as GPIO
 import os
 from flask import Flask, jsonify
@@ -37,11 +12,10 @@ LED_PIN = int(os.getenv("LED_PIN"))
 app = Flask(__name__)
 swagger = Swagger(app)
 
-def setup_gpio():
-    """Configura o GPIO e garante que o LED comece apagado"""
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(LED_PIN, GPIO.OUT)
-    GPIO.output(LED_PIN, GPIO.LOW)  # LED apagado ao iniciar
+# Configuração inicial do GPIO (apenas uma vez)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(LED_PIN, GPIO.OUT)
+GPIO.output(LED_PIN, GPIO.LOW)  # LED começa apagado
 
 @app.route('/led/on', methods=['POST'])
 def led_on():
@@ -52,7 +26,6 @@ def led_on():
       200:
         description: LED ligado
     """
-    setup_gpio()
     GPIO.output(LED_PIN, GPIO.HIGH)
     return jsonify({"status": "LED ligado"})
 
@@ -65,7 +38,6 @@ def led_off():
       200:
         description: LED desligado
     """
-    setup_gpio()
     GPIO.output(LED_PIN, GPIO.LOW)
     return jsonify({"status": "LED desligado"})
 
@@ -78,7 +50,6 @@ def get_led_status():
       200:
         description: Status atual do LED
     """
-    setup_gpio()
     status = GPIO.input(LED_PIN)
     return jsonify({"status": "ligado" if status else "desligado"})
 
@@ -87,5 +58,4 @@ def cleanup_gpio(exception=None):
     GPIO.cleanup()
 
 if __name__ == "__main__":
-    setup_gpio()
     app.run(host="0.0.0.0", port=5000, debug=True)
