@@ -15,24 +15,25 @@ pipeline {
                 sh '''
                     pwd
                     ls -l
-                    rm -rf /home/pi/Aquario/*
-                    shopt -s dotglob
+                    cp /home/pi/JenkinsAgent/workspace/Aquario/ /home/pi/
+                    // rm -rf /home/pi/Aquario/*
+                    // shopt -s dotglob
                     // cd /home/pi/JenkinsAgent/workspace/Aquario
                     // mv -f * /home/pi/Aquario/
                 '''
             }
         }
-        stage('Monitoramento do Sistema') {
-            steps {
-                sh '''
-                    vcgencmd measure_temp
-                    echo ""
-                    free -h
-                    echo ""
-                    df -h /
-                '''
-            }
-        }
+        // stage('Monitoramento do Sistema') {
+        //     steps {
+        //         sh '''
+        //             vcgencmd measure_temp
+        //             echo ""
+        //             free -h
+        //             echo ""
+        //             df -h /
+        //         '''
+        //     }
+        // }
         stage('Limpando Memoria') {
             steps {
                 sh '''
