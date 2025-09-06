@@ -29,7 +29,7 @@ swagger = Swagger(app, config={
 })
 
 @app.route('/motor/on', methods=['POST'])
-def led_on():
+def motor_on():
     """
     Ligar o Motor
     ---
@@ -43,7 +43,7 @@ def led_on():
     return jsonify({"status": "Motor ligado"})
 
 @app.route('/motor/off', methods=['POST'])
-def led_off():
+def motor_off():
     """
     Desligar o Motor
     ---
@@ -57,7 +57,7 @@ def led_off():
     return jsonify({"status": "Motor desligado"})
 
 @app.route('/motor/status', methods=['GET'])
-def get_led_status():
+def get_motor_status():
     """
     Consultar status do Motor
     ---
@@ -71,7 +71,7 @@ def get_led_status():
     return jsonify({"status": "ligado" if status else "desligado"})
 
 @app.route('/raspberry/status', methods=['GET'])
-def system_status():
+def raspberry_status():
     """
     Consultar temperatura e voltagem do Raspberry Pi
     ---
