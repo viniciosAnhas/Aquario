@@ -33,6 +33,8 @@ def led_on():
     """
     Ligar o Motor
     ---
+    tags:
+      - Motor
     responses:
       200:
         description: Motor ligado
@@ -45,6 +47,8 @@ def led_off():
     """
     Desligar o Motor
     ---
+    tags:
+      - Motor
     responses:
       200:
         description: Motor desligado
@@ -57,6 +61,8 @@ def get_led_status():
     """
     Consultar status do Motor
     ---
+    tags:
+      - Motor
     responses:
       200:
         description: Status atual do Motor
@@ -69,6 +75,8 @@ def system_status():
     """
     Consultar temperatura e voltagem do Raspberry Pi
     ---
+    tags:
+      - Raspberry
     responses:
       200:
         description: Retorna a temperatura e voltagem atuais
