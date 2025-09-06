@@ -64,6 +64,25 @@ def get_led_status():
     status = GPIO.input(motor)
     return jsonify({"status": "ligado" if status else "desligado"})
 
+@app.route('/raspberry/status', methods=['GET'])
+def system_status():
+    """
+    Consultar temperatura e voltagem do Raspberry Pi
+    ---
+    responses:
+      200:
+        description: Retorna a temperatura e voltagem atuais
+    """
+    try:
+        temp = subprocess.check_output(["vcgencmd", "measure_temp"]).decode("utf-8").strip()
+        volts = subprocess.check_output(["vcgencmd", "measure_volts"]).decode("utf-8").strip()
+        return jsonify({
+            "temperature": temp,
+            "voltage": volts
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == "__main__":
     try:
         app.run(host="0.0.0.0", port=os.getenv('PORTA'))
