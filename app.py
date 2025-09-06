@@ -53,15 +53,15 @@ def setup_gpio():
         # Se já estiver configurado, ignoramos
         pass
 
-def blink_led():
-    """Thread para piscar LED"""
-    global blinking
-    setup_gpio()
-    while blinking:
-        GPIO.output(LED_PIN, GPIO.HIGH)
-        time.sleep(TEMPO)
-        GPIO.output(LED_PIN, GPIO.LOW)
-        time.sleep(TEMPO)
+# def blink_led():
+#     """Thread para piscar LED"""
+#     global blinking
+#     setup_gpio()
+#     while blinking:
+#         GPIO.output(LED_PIN, GPIO.HIGH)
+#         time.sleep(TEMPO)
+#         GPIO.output(LED_PIN, GPIO.LOW)
+#         time.sleep(TEMPO)
 
 @app.route('/led', methods=['POST'])
 def set_led():
@@ -106,24 +106,24 @@ def get_led_status():
     status = GPIO.input(LED_PIN)
     return jsonify({"status": "ligado" if status else "desligado"})
 
-@app.route('/led/blink', methods=['POST'])
-def start_blink():
-    """
-    Fazer o LED piscar no intervalo definido em TEMPO (.env)
-    ---
-    responses:
-      200:
-        description: Inicia o piscar do LED
-    """
-    global blinking, blink_thread
-    setup_gpio()
-    if not blinking:
-        blinking = True
-        blink_thread = threading.Thread(target=blink_led, daemon=True)
-        blink_thread.start()
-        return jsonify({"status": f"LED piscando a cada {TEMPO} segundos"})
-    else:
-        return jsonify({"status": "LED já está piscando"})
+# @app.route('/led/blink', methods=['POST'])
+# def start_blink():
+#     """
+#     Fazer o LED piscar no intervalo definido em TEMPO (.env)
+#     ---
+#     responses:
+#       200:
+#         description: Inicia o piscar do LED
+#     """
+#     global blinking, blink_thread
+#     setup_gpio()
+#     if not blinking:
+#         blinking = True
+#         blink_thread = threading.Thread(target=blink_led, daemon=True)
+#         blink_thread.start()
+#         return jsonify({"status": f"LED piscando a cada {TEMPO} segundos"})
+#     else:
+#         return jsonify({"status": "LED já está piscando"})
 
 @app.route('/led/blink/stop', methods=['POST'])
 def stop_blink():
