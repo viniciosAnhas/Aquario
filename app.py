@@ -28,6 +28,18 @@ swagger = Swagger(app, config={
     "specs_route": "/apiaquario/"
 })
 
+@app.route('/motor/on', methods=['POST'])
+def led_on():
+    """
+    Ligar o Motor
+    ---
+    responses:
+      200:
+        description: Motor ligado
+    """
+    GPIO.output(motor, GPIO.HIGH)
+    return jsonify({"status": "Motor ligado"})
+
 if __name__ == "__main__":
     try:
         app.run(host="0.0.0.0", port=os.getenv('PORTA'))
