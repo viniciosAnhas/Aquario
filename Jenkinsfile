@@ -13,8 +13,12 @@ pipeline {
             steps{
                 sh '''
                     free -h
+                    sudo sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
+                    echo 1 | sudo tee /proc/sys/vm/drop_caches
+                    echo 2 | sudo tee /proc/sys/vm/drop_caches
                     sync
                     echo 3 | sudo tee /proc/sys/vm/drop_caches
+                    sudo sysctl -w vm.drop_caches=3
                     free -h
                 '''
             }
@@ -40,11 +44,29 @@ pipeline {
             steps {
                 sh '''
                     free -h
+                    sudo sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
+                    echo 1 | sudo tee /proc/sys/vm/drop_caches
+                    echo 2 | sudo tee /proc/sys/vm/drop_caches
                     sync
                     echo 3 | sudo tee /proc/sys/vm/drop_caches
+                    sudo sysctl -w vm.drop_caches=3
                     free -h
                 '''
             }
+        }
+    }
+    post {
+        always {
+            sh '''
+                free -h
+                sudo sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
+                echo 1 | sudo tee /proc/sys/vm/drop_caches
+                echo 2 | sudo tee /proc/sys/vm/drop_caches
+                sync
+                echo 3 | sudo tee /proc/sys/vm/drop_caches
+                sudo sysctl -w vm.drop_caches=3
+                free -h
+            '''
         }
     }
 }
