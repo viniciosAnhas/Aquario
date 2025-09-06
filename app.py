@@ -12,7 +12,7 @@ LED_PIN = int(os.getenv("LED_PIN"))
 app = Flask(__name__)
 swagger = Swagger(app)
 
-# Configuração inicial do GPIO (apenas uma vez)
+# Configuração inicial do GPIO (uma vez só)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(LED_PIN, GPIO.OUT)
 GPIO.output(LED_PIN, GPIO.LOW)  # LED começa apagado
@@ -53,9 +53,8 @@ def get_led_status():
     status = GPIO.input(LED_PIN)
     return jsonify({"status": "ligado" if status else "desligado"})
 
-@app.teardown_appcontext
-def cleanup_gpio(exception=None):
-    GPIO.cleanup()
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    try:
+        app.run(host="0.0.0.0", port=5000, debug=True)
+    finally:
+        GPIO.cleanup()  # <- só roda quando o processo Flask for encerrado
