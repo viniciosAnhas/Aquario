@@ -11,7 +11,21 @@ LED_PIN = int(os.getenv("LED_PIN"))
 
 # Criar app Flask
 app = Flask(__name__)
-swagger = Swagger(app)
+# swagger = Swagger(app)
+swagger = Swagger(app, config={
+    "headers": [],
+    "specs": [
+        {
+            "endpoint": 'apispec_1',
+            "route": '/apiaquario/apispec_1.json',  # especificação JSON
+            "rule_filter": lambda rule: True,
+            "model_filter": lambda tag: True,
+        }
+    ],
+    "static_url_path": "/flasgger_static",
+    "swagger_ui": True,
+    "specs_route": "/apiaquario/"  # <--- aqui você define o prefixo do Swagger UI
+})
 
 # Configuração inicial do GPIO (uma vez só)
 GPIO.setmode(GPIO.BCM)
