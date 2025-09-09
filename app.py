@@ -3,8 +3,20 @@ from flasgger import Swagger
 import RPi.GPIO as GPIO
 import os
 from routes import motor_bp, raspberry_bp, sensor_bp
+from flask_apscheduler import APScheduler
+from scheduler import motor_scheduler
 
 app = Flask(__name__)
+
+class Config:
+    SCHEDULER_API_ENABLED = False
+    SCHEDULER_TIMEZONE = "America/Sao_Paulo"
+
+app.config.from_object(Config)
+
+scheduler = APScheduler()
+scheduler.init_app(app)
+
 swagger = Swagger(app, config={
     "headers": [],
     "specs": [
@@ -26,6 +38,8 @@ app.register_blueprint(sensor_bp)
 
 if __name__ == "__main__":
     try:
+        scheduler.start()
+        iniciar_agendamentos(scheduler)
         app.run(host="0.0.0.0", port=os.getenv('PORTA'))
     finally:
         GPIO.cleanup()
