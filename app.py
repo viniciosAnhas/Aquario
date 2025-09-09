@@ -43,6 +43,40 @@ swagger_config = {
     }
 }
 
+swagger = Swagger(app, config=swagger_config, template={
+    "info": {
+        "title": "APIAQUARIO",
+        "version": "1.0.0",
+        "description": "API para controle do aquário",
+        "contact": {
+            "name": "Vinicios Anhas",
+            "url": "https://github.com/seu-usuario"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "schemes": ["http", "https"],
+    "operationId": "getmyData"
+    # "tags": [
+    #     {
+    #         "name": "Raspberry",
+    #         "description": "Endpoints para monitoramento do Raspberry Pi"
+    #     },
+    #     {
+    #         "name": "Motor",
+    #         "description": "Endpoints para controle do motor"
+    #     },
+    #     {
+    #         "name": "Senso",
+    #         "description": "Endpoints para sensores"
+    #     }
+    # ]
+})
+
 # swagger = Swagger(app, config={
 #     "headers": [],
 #     "specs": [
