@@ -41,7 +41,21 @@ swagger = Swagger(app, config={
             "name": "Vinicios Anhas",
             "url": "https://github.com/viniciosAnhas"
         }
-    }
+    },
+    "tags":[
+        {
+            "name": "Raspberry",
+            "description": "Endpoints para monitoramento do Raspberry Pi"
+        },
+        {
+            "name": "Motor",
+            "description": "Endpoints para controle do motor"
+        },
+        {
+            "name": "Senso",
+            "description": "Endpoints para sensores"
+        },
+    ]
 })
 
 app.register_blueprint(motor_bp)
