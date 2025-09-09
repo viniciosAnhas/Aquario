@@ -41,7 +41,7 @@ swagger = Swagger(app, config={
             "url": "https://github.com/viniciosAnhas"
         }
     },
-    "host": "raspberrypi:5000"
+    "host": "192.168.1.232:5000"
 })
 
 app.register_blueprint(motor_bp)
