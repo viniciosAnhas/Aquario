@@ -49,7 +49,7 @@ swagger = Swagger(app, config={
         },
         {
             "name": "Motor",
-            "description": "Endpoints para controle do motor"
+            "description": "Endpoints para controle do motor",
         },
         {
             "name": "Senso",
