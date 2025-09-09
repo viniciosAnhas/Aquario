@@ -33,20 +33,6 @@ swagger = Swagger(app, config={
     "swagger_ui": True,
     "specs_route": "/apiaquario/",
     "title": "APIAQUARIO"
-    "version": "1.0.0",
-    "description": "API para controle do aquário",
-    "termsOfService": "", 
-    "host": "raspberrypi:5000",
-    "ui_params":{
-        "displayRequestDuration": True,
-        "docExpansion": "none"
-    },
-    "info":{
-        "contact":{
-            "name": "Vinicios Anhas",
-            "url": "https://github.com/seu-usuario"
-        }
-    }
 })
 
 app.register_blueprint(motor_bp)
