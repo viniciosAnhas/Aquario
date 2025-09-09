@@ -19,7 +19,7 @@ scheduler.init_app(app)
 
 GPIO.setwarnings(False)
 
-swagger = Swagger(app, config={
+swagger_config = {
     "headers": [],
     "specs": [
         {
@@ -31,7 +31,49 @@ swagger = Swagger(app, config={
     ],
     "static_url_path": "/flasgger_static",
     "swagger_ui": True,
-    "specs_route": "/apiaquario/"
+    "specs_route": "/apiaquario/",
+    "title": "APIAQUARIO",
+    "version": "1.0.0",
+    "description": "API para controle do aquário",
+    "termsOfService": "",
+    "ui_params": {
+        "displayRequestDuration": True,
+        "docExpansion": "none"
+    }
+}
+
+swagger = Swagger(app, config=swagger_config, template={
+    "info": {
+        "title": "APIAQUARIO",
+        "version": "1.0.0",
+        "description": "API para controle do aquário",
+        "contact": {
+            "name": "Vinicios Anhas",
+            "url": "https://github.com/viniciosAnhas"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "raspberrypi:5000",
+    "basePath": "/",
+    "schemes": ["http", "https"],
+    "operationId": "getmyData",
+    "tags": [
+        {
+            "name": "Raspberry",
+            "description": "Endpoints para monitoramento do Raspberry Pi"
+        },
+        {
+            "name": "Motor",
+            "description": "Endpoints para controle do motor"
+        },
+        {
+            "name": "Sensor",
+            "description": "Endpoints para sensores"
+        }
+    ]
 })
 
 app.register_blueprint(motor_bp)
