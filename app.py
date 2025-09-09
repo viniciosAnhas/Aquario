@@ -57,16 +57,39 @@ from scheduler.motor_scheduler import iniciar_agendamentos
 
 app = Flask(__name__)
 
+# Configuração do APScheduler
 class Config:
     SCHEDULER_API_ENABLED = False
     SCHEDULER_TIMEZONE = "America/Sao_Paulo"
 
 app.config.from_object(Config)
 
+# Inicializa o scheduler
 scheduler = APScheduler()
 scheduler.init_app(app)
 
+# Remove warnings do GPIO
 GPIO.setwarnings(False)
+
+# Configuração SIMPLIFICADA do Swagger
+swagger_template = {
+    "info": {
+        "title": "APIAQUARIO",
+        "version": "1.0.0",
+        "description": "API para controle do aquário",
+        "termsOfService": "",
+        "contact": {
+            "name": "Vinicios Anhas",
+            "url": "https://github.com/seu-usuario"
+        }
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "schemes": [
+        "http",
+        "https"
+    ],
+}
 
 swagger_config = {
     "headers": [],
@@ -81,56 +104,37 @@ swagger_config = {
     "static_url_path": "/flasgger_static",
     "swagger_ui": True,
     "specs_route": "/apiaquario/",
-    "title": "APIAQUARIO",
-    "version": "1.0.0",
-    "description": "API para controle do aquário",
-    "termsOfService": "", 
-    "ui_params": {
-        "displayRequestDuration": True,
-        "docExpansion": "none"
-    }
+    "title": "APIAQUARIO",  # Título na aba do navegador
 }
 
-swagger = Swagger(app, config=swagger_config, template={
-    "info": {
-        "title": "APIAQUARIO",
-        "version": "1.0.0",
-        "description": "API para controle do aquário",
-        "contact": {
-            "name": "Vinicios Anhas",
-            "url": "https://github.com/viniciosAnhas"
-        }
-    },
-    "host": "raspberrypi:5000",
-    "basePath": "/",
-    "schemes": ["http"],
-    "operationId": "getmyData",
-    "tags": [
-        {
-            "name": "Raspberry",
-            "description": "Endpoints para monitoramento do Raspberry Pi"
-        },
-        {
-            "name": "Motor",
-            "description": "Endpoints para controle do motor"
-        },
-        {
-            "name": "Senso",
-            "description": "Endpoints para sensores"
-        }
-    ]
-})
+swagger = Swagger(app, config=swagger_config, template=swagger_template)
 
 app.register_blueprint(motor_bp)
 app.register_blueprint(raspberry_bp)
 app.register_blueprint(sensor_bp)
 
+# Rota para customizar o footer dinamicamente
+@app.after_request
+def alterar_footer_swagger(response):
+    if response.content_type and 'text/html' in response.content_type:
+        if hasattr(response, 'get_data'):
+            content = response.get_data(as_text=True)
+            # Altera o footer
+            content = content.replace('powered by Flasgger', 'Powered by Vinicios Anhas')
+            content = content.replace('Flasgger', 'Swagger UI')
+            content = content.replace('A swagger API', 'APIAQUARIO')
+            response.set_data(content)
+    return response
+
 if __name__ == "__main__":
     try:
+        # Inicia o scheduler
         scheduler.start()
         
+        # Configura os agendamentos
         iniciar_agendamentos(scheduler, app)
         
+        # Inicia o servidor Flask
         app.run(host="0.0.0.0", port=os.getenv('PORTA'))
     finally:
         GPIO.cleanup()
