@@ -19,8 +19,7 @@ scheduler.init_app(app)
 
 GPIO.setwarnings(False)
 
-
-swagger_config = {
+swagger = Swagger(app, config={
     "headers": [],
     "specs": [
         {
@@ -33,65 +32,22 @@ swagger_config = {
     "static_url_path": "/flasgger_static",
     "swagger_ui": True,
     "specs_route": "/apiaquario/",
-    "title": "APIAQUARIO",
+    "title": "APIAQUARIO"
     "version": "1.0.0",
-    "description": "API para controle do aquario",
-    "termsOfService": "",
-    "ui_params": {
+    "description": "API para controle do aquário",
+    "termsOfService": "", 
+    "host": "raspberrypi:5000",
+    "ui_params":{
         "displayRequestDuration": True,
         "docExpansion": "none"
-    }
-}
-
-swagger = Swagger(app, config=swagger_config, template={
-    "info": {
-        "title": "APIAQUARIO",
-        "version": "1.0.0",
-        "description": "API para controle do aquário",
-        "contact": {
+    },
+    "info":{
+        "contact":{
             "name": "Vinicios Anhas",
             "url": "https://github.com/seu-usuario"
-        },
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
         }
-    },
-    "host": "raspberrypi:5000",
-    "basePath": "/",
-    "schemes": ["http"],
-    "operationId": "getmyData"
-    # "tags": [
-    #     {
-    #         "name": "Raspberry",
-    #         "description": "Endpoints para monitoramento do Raspberry Pi"
-    #     },
-    #     {
-    #         "name": "Motor",
-    #         "description": "Endpoints para controle do motor"
-    #     },
-    #     {
-    #         "name": "Senso",
-    #         "description": "Endpoints para sensores"
-    #     }
-    # ]
+    }
 })
-
-# swagger = Swagger(app, config={
-#     "headers": [],
-#     "specs": [
-#         {
-#             "endpoint": 'apispec_1',
-#             "route": '/apiaquario/apispec_1.json',
-#             "rule_filter": lambda rule: True,
-#             "model_filter": lambda tag: True,
-#         }
-#     ],
-#     "static_url_path": "/flasgger_static",
-#     "swagger_ui": True,
-#     "specs_route": "/apiaquario/",
-#     "title": "APIAQUARIO"
-# })
 
 app.register_blueprint(motor_bp)
 app.register_blueprint(raspberry_bp)
