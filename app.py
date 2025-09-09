@@ -34,7 +34,7 @@ swagger = Swagger(app, config={
     "specs_route": "/apiaquario/",
     "title": "APIAQUARIO",
     "version": "1.0.0",
-    "description": "API para controle do aquário"
+    "description": "API para controle do aquário",
     "contact":{
         "name": "Vinicios Anhas",
         "url": "https://github.com/viniciosAnhas"
