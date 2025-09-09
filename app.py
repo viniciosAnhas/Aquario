@@ -17,6 +17,8 @@ app.config.from_object(Config)
 scheduler = APScheduler()
 scheduler.init_app(app)
 
+GPIO.setwarnings(False)
+
 swagger = Swagger(app, config={
     "headers": [],
     "specs": [
@@ -39,7 +41,7 @@ app.register_blueprint(sensor_bp)
 if __name__ == "__main__":
     try:
         scheduler.start()
-        iniciar_agendamentos(scheduler)
+        iniciar_agendamentos(scheduler, app)
         app.run(host="0.0.0.0", port=os.getenv('PORTA'))
     finally:
         GPIO.cleanup()
