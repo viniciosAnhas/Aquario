@@ -19,7 +19,7 @@ scheduler.init_app(app)
 
 GPIO.setwarnings(False)
 
-swagger_config = {
+swagger = Swagger(app, config={
     "headers": [],
     "specs": [
         {
@@ -31,30 +31,7 @@ swagger_config = {
     ],
     "static_url_path": "/flasgger_static",
     "swagger_ui": True,
-    "specs_route": "/apiaquario/",
-    "title": "APIAQUARIO",
-    "version": "1.0.0",
-    "description": "API para controle do aquário",
-    "termsOfService": "",
-    "ui_params": {
-        "displayRequestDuration": True,
-        "docExpansion": "none"
-    }
-}
-
-swagger = Swagger(app, config=swagger_config, template={
-    "info": {
-        "title": "APIAQUARIO",
-        "version": "1.0.0",
-        "description": "API para controle do aquário",
-        "contact": {
-            "name": "Vinicios Anhas",
-            "url": "https://github.com/viniciosAnhas"
-        },
-    },
-    "host": "raspberrypi:5000",
-    "basePath": "/",
-    "operationId": "getmyData"
+    "specs_route": "/apiaquario/"
 })
 
 app.register_blueprint(motor_bp)
