@@ -57,7 +57,7 @@ swagger = Swagger(app, config=swagger_config, template={
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "localhost:5000",
+    "host": "raspberrypi:5000",
     "basePath": "/",
     "schemes": ["http", "https"],
     "operationId": "getmyData"
