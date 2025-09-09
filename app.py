@@ -2,8 +2,7 @@ from flask import Flask
 from flasgger import Swagger
 import RPi.GPIO as GPIO
 import os
-from motor_routes import motor_bp
-from raspberry_routes import raspberry_bp
+from routes import motor_bp, raspberry_bp
 
 app = Flask(__name__)
 swagger = Swagger(app, config={
