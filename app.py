@@ -51,29 +51,10 @@ swagger = Swagger(app, config=swagger_config, template={
             "name": "Vinicios Anhas",
             "url": "https://github.com/viniciosAnhas"
         },
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        }
     },
     "host": "raspberrypi:5000",
     "basePath": "/",
-    "schemes": ["http", "https"],
-    "operationId": "getmyData",
-    "tags": [
-        {
-            "name": "Raspberry",
-            "description": "Endpoints para monitoramento do Raspberry Pi"
-        },
-        {
-            "name": "Motor",
-            "description": "Endpoints para controle do motor"
-        },
-        {
-            "name": "Sensor",
-            "description": "Endpoints para sensores"
-        }
-    ]
+    "operationId": "getmyData"
 })
 
 app.register_blueprint(motor_bp)
