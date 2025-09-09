@@ -59,7 +59,7 @@ swagger = Swagger(app, config=swagger_config, template={
     },
     "host": "raspberrypi:5000",
     "basePath": "/",
-    "schemes": ["http", "https"],
+    "schemes": ["http"],
     "operationId": "getmyData"
     # "tags": [
     #     {
