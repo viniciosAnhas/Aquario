@@ -2,7 +2,7 @@ from flask import Flask
 from flasgger import Swagger
 import RPi.GPIO as GPIO
 import os
-from routes import motor_bp, raspberry_bp
+from routes import motor_bp, raspberry_bp, sensor_bp
 
 app = Flask(__name__)
 swagger = Swagger(app, config={
@@ -22,6 +22,7 @@ swagger = Swagger(app, config={
 
 app.register_blueprint(motor_bp)
 app.register_blueprint(raspberry_bp)
+app.register_blueprint(sensor_bp)
 
 if __name__ == "__main__":
     try:
