@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 import os
 from routes import motor_bp, raspberry_bp, sensor_bp
 from flask_apscheduler import APScheduler
-from scheduler import motor_scheduler
+from scheduler import iniciar_agendamentos
 
 app = Flask(__name__)
 
