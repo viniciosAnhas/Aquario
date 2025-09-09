@@ -32,7 +32,9 @@ swagger = Swagger(app, config={
     "static_url_path": "/flasgger_static",
     "swagger_ui": True,
     "specs_route": "/apiaquario/",
-    "title": "APIAQUARIO"
+    "title": "APIAQUARIO",
+    "version": "1.0.0",
+    "description": "API para controle do aquário"
 })
 
 app.register_blueprint(motor_bp)
