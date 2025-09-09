@@ -17,9 +17,7 @@ def agua_level():
     try:
         nivelAgua = random.randint(0, 100)
         return jsonify({
-            "water_level": f"{nivelAgua}%",
-            "value": nivelAgua,
-            "unit": "percentage"
+            "nivelAgua": f"{nivelAgua}%"
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
