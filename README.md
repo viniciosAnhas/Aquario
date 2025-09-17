@@ -7,3 +7,4 @@ RaspberryPi
 Servo motor
 MySQL
 Docker
+Sensor FD10
